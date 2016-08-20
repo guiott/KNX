@@ -1,3 +1,0 @@
-#!/bin/bash
-cd /home/guiott/mjpg-streamer-code-182/mjpg-streamer-experimental
-nohup ./mjpg_streamer -i "./input_uvc.so -f 15 -r 1280x720" -o "./output_http.so -w ./www" >/dev/null 2>&1 &
