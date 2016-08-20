@@ -1,0 +1,9 @@
+node_modules/socket.io/
+node_modules/serialport/
+node_modules/body-parser/
+node_modules/cookie-parser/
+node_modules/morgan/
+node_modules/express/
+.bin
+KNX.log
+KNX.json

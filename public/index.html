@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html><head>
+
+<meta http-equiv = "content-type" content="text/html; charset=UTF-8"/>
+
+<title>KNX Console</title>
+<link rel="stylesheet" href="stylesheets/main.css" type="text/css" />
+    
+</head>
+   
+<body>
+
+<div>
+   
+
+
+	<span id=divLuciOFF>
+		<canvas id="divLuciOFF" width="0" height="50"></canvas>
+		<input id="roundRed" type="submit" value="OFF" onclick="Luci(false)"/>
+	</span>
+
+	<span id=divLuciON>
+		<canvas id="divLuciON" width="0" height="50"></canvas>
+		<input id="roundGreen" type="submit" value="ON" onclick="Luci(true)"/>
+	</span>
+
+   <span id=divScenariON>
+		<canvas id="divScenariON" width="0" height="50"></canvas>
+		<input id="roundBlue" type="submit" value="GO" onclick="Scenari(false)"/>
+   </span>
+
+   <span id=divTapGIU>
+		<canvas id="divTapGIU" width="0" height="50"></canvas>
+	   <input id="roundBlue" type="submit" value="GIU" onclick="Tap(1)"/>
+   </span>
+
+	<span id=divTapSU>
+		<canvas id="divTapSU" width="0" height="50"></canvas>
+		<input id="roundGreen" type="submit" value="SU" onclick="Tap(0)"/>
+	</span>
+
+   <span id=divTapStop>
+		<canvas id="divTapStop" width="0" height="50"></canvas>
+		<input id="roundRed" type="submit" value="STOP" onclick="Tap(2)"/>
+   </span>
+
+	<span id=divPopUpLuci class="styled-select blue rounded">
+	   <select id=LuciList>
+		 <option value="0">LUCI</option>
+		 <option value="1">Salone Luci SX</option>
+		 <option value="2">Salone Luci DX</option>
+		 <option value="3">Salone Abatjour</option>
+		 <option value="4">Balcone</option>
+		 <option value="5">Cucina</option>
+		 <option value="6">Cucina pensili</option>
+		 <option value="7">Laboratorio</option>
+		 <option value="8">Letto Luci 1</option>
+		 <option value="9">Letto Luci 2</option>
+		 <option value="10">Testata Letto</option>
+		 <option value="11">Camera SX</option>
+		 <option value="12">Camera DX</option>
+		 <option value="13">Ingresso</option>
+		 <option value="14">Disimpegno Giorno</option>
+		 <option value="15">Disimpegno Notte</option>
+		 <option value="16">Bagno Notte</option>
+		 <option value="17">Bagno Giorno</option>
+		 <option value="18">Presa TV</option>
+	   </select>
+	</span>
+
+	<span id=divPopUpScenari class="styled-select blue rounded">
+	   <select id=ScenariList>
+		 <option value="0">SCENARI</option>
+		 <option value="19">Luci OFF</option>
+		 <option value="20">Tapparelle Su</option>
+		 <option value="21">Tapparelle Giu</option>
+	   </select>
+	</span>
+
+	<span id=divPopUpTap class="styled-select blue rounded">
+	   <select id=TapList>
+		 <option value="0">TAPPARELLE</option>
+		 <option value="1">Salone</option>
+		 <option value="2">Cucina porta finestra</option>
+		 <option value="3">Cucina finestrina</option>
+		 <option value="4">Laboratorio</option>
+		 <option value="5">Camera Letto</option>
+		 <option value="6">Camera</option>
+		 <option value="7">Bagno notte</option>
+		 <option value="8">Bagno Giorno</option>
+	   </select>
+	</span>
+
+	<script src="socket.io/socket.io.js"></script>
+	<script src="javascripts/RxTx.js"></script>
+
+</div>
+</body></html>
