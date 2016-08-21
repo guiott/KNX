@@ -7,7 +7,6 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var rxTx = require('rxTx.js');
-var webClient = require('webClient.js');
 var events = require('events');
 
 var exec = require('child_process').exec,
@@ -115,25 +114,25 @@ upTime = Date.now();
 var GUItimeout = 5000; // timeout on command receive from GUI web client
 GUItime = 0; //current time since last json packet
 
-var KNX = {LINE : 0, DEVICE: 0, CMD: 0, FLAG: 0};
+var KNXtelegram = {LINE : 0, DEVICE: 0, CMD: 0, COUNT: 0};
 
-
+CLIENT=0;
 io.sockets.on('connection', function(client)
 {   // Success!  Now listen to messages to be received
+	CLIENT=client;
 	client.on('message',function(event)
 	{ 
 	  // console.log("socket"); //debug
       GUItime = Date.now(); // reset timeout counting
       var knxJSON = JSON.parse(event);
-      KNX.LINE=knxJSON.LINE;
-      KNX.DEVICE=knxJSON.DEVICE;
-      KNX.CMD=knxJSON.CMD;
-      KNX.COUNT=knxJSON.COUNT;
+      KNXtelegram.LINE=knxJSON.LINE;
+      KNXtelegram.DEVICE=knxJSON.DEVICE;
+      KNXtelegram.CMD=knxJSON.CMD;
+      KNXtelegram.COUNT=knxJSON.COUNT;
 
-   	  rxTx.txTelegram(KNX.LINE, KNX.DEVICE, KNX.CMD, KNX.COUNT);
-    	//console.log(KNX.LINE+"  "+ KNX.DEVICE+"  "+ KNX.CMD+"  "+KNX.COUNT);
-        //console.log(knxJSON);
-        //webClient.TX(client);
+   	  rxTx.txTelegram(KNXtelegram.LINE, KNXtelegram.DEVICE, KNXtelegram.CMD, KNXtelegram.COUNT);
+      //console.log(KNX.LINE+"  "+ KNX.DEVICE+"  "+ KNX.CMD+"  "+KNX.COUNT);
+      //console.log(knxJSON);
 	});
 	
 	client.on('disconnect',function()
@@ -147,7 +146,7 @@ server.listen(port, function(){
 });
 
 //-------------------------------Date
-ISODateString = function(){
+ISODateStringUTC = function(){
   var d = new Date();
   function pad(n, width, z) 
   {
@@ -163,6 +162,25 @@ ISODateString = function(){
       + pad(d.getUTCMinutes(),2,'0')+':'
       + pad(d.getUTCSeconds(),2,'0')+'.'
       + pad(d.getMilliseconds(),3,'0')+'Z';
+};
+
+//-------------------------------Date
+ISODateString = function(){
+  var d = new Date();
+  function pad(n, width, z) 
+  {
+    z = z || '0';
+    n = n + '';
+    return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+  }
+  // function pad(n){return n<10 ? '0'+n : n}
+  return d.getFullYear()+'-'
+      + pad(d.getMonth()+1,2,'0')+'-'
+      + pad(d.getDate(),2,'0')+'T'
+      + pad(d.getHours(),2,'0')+':'
+      + pad(d.getMinutes(),2,'0')+':'
+      + pad(d.getSeconds(),2,'0')+'.'
+      + pad(d.getMilliseconds(),3,'0')+'CET';
 };
 
 //-------------------------------Serial communication

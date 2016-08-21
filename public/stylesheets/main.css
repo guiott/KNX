@@ -14,6 +14,18 @@
         outline: none;
 }
 
+#RXdata 
+{
+	position: absolute;
+	left: 30px;
+	top: 650px;
+	z-index: 2;
+	text-align: center;
+	font: 13px/1px sans-serif; 
+	font-weight: bold; 
+	color: #666; 
+}
+
 #divPopUpTap {
 	position: absolute;
 	left: 300px;

@@ -10,7 +10,7 @@ and more information about it can be obtained on those pages.
 This software has been used also as a Konnex bus sniffer to understand how to compose the KNX telegrams to control devices of different kind and scenarios too.
 
 Any information about KNX can be obtained on the Net were a lot of pages are available.
-Information about PIC firmware can obtained from the original project site.
+Information about PIC firmware can be obtained from the original project site.
 
 Any contribution will be appreciated.
 
