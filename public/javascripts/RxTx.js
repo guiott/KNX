@@ -56,14 +56,14 @@ socket.on('RxEvent', function (data)
 { 
   var RX = JSON.parse(data);
   
-  var Scen=1;
+  var Tap=true;
   var DestStatus="OFF";
   for(var i=0; i<Device.length; i++)
   {
   	if(RX.DestHex===Device[i][0] & RX.DestDev===Device[i][1])
   	{
   		var DestLiteral=Device[i][3];
-  		Scen=0;
+  		Tap=false;
   		if(RX.Payload===" 81")
   		{
   			DestStatus="ON ";
@@ -73,6 +73,35 @@ socket.on('RxEvent', function (data)
   			DestStatus="OFF";
   		}
   		break;
+  	}
+  	
+  	var TapStop=true;
+  	if(Tap)
+  	{
+		if(RX.DestHex===DeviceTap[i][0] & RX.DestDev===DeviceTap[i][1])
+		{
+			TapStop=false;
+			var DestLiteral=DeviceTap[i][3];
+			if(RX.Payload===" 81")
+			{
+				DestStatus=" tapparella GIU ";
+			}
+			else
+			{
+				DestStatus=" tapparella SU";
+			}
+			break;
+		}
+  	}
+  	
+  	if(TapStop)
+  	{
+		if(RX.DestHex===DeviceTap[i][0] & RX.DestDev===DeviceTap[i][2])
+		{
+			var DestLiteral=DeviceTap[i][3];
+			DestStatus=" tapparella STOP ";
+			break;
+		}
   	}
   }
   
@@ -166,7 +195,7 @@ var KNXactionTap=function(Device, Switch, Count)
 				'CMD'	: false,
 				'COUNT'	: Count,
 			}
-			DestStatus="SU";
+			DestStatus=" tapparella SU";
 			break;
 		case 1:
 			var KNXact =
@@ -176,7 +205,7 @@ var KNXactionTap=function(Device, Switch, Count)
 				'CMD'	: true,
 				'COUNT'	: Count,
 			}
-			DestStatus="GIU";
+			DestStatus=" tapparella GIU";
 			break;
 		case 2:
 			var KNXact =
@@ -186,7 +215,7 @@ var KNXactionTap=function(Device, Switch, Count)
 				'CMD'	: true,
 				'COUNT'	: Count,
 			}
-			DestStatus="STOP";
+			DestStatus=" tapparella STOP";
 			break;
 	}
 	socket.emit('message', JSON.stringify(KNXact));
