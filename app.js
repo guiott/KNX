@@ -6,7 +6,11 @@ var path = require('path');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+
+// personal modules
 var rxTx = require('rxTx.js');
+var solehome = require('solehome.js');
+
 var events = require('events');
 
 var exec = require('child_process').exec,
@@ -119,7 +123,39 @@ var KNXtelegram = {LINE : 0, DEVICE: 0, CMD: 0, COUNT: 0};
 CLIENT=0;
 io.sockets.on('connection', function(client)
 {   // Success!  Now listen to messages to be received
+
+	var d = new Date();
 	CLIENT=client;
+	KNXdecoded = 
+	{
+		'Date'		: "",
+		'Length' 	: "",
+		'Prio'		: "",
+		'Rep'		: "",
+		'SendArea'	: "",
+		'SendLine'	: "",
+		'SendDev'	: "",
+		'DestArea'	: "",
+		'DestLine'	: "",
+		'DestHex'	: 0,
+		'DestDev'	: 0,
+		'DestGroup'	: "",
+		'Routing'	: "",
+		'Count'		: "",
+		'Pdu'		: "",
+		'Payload'	: "",
+		'Check'		: "",
+		'Telegram'	: "",
+		'Dawn'		: hsorge,
+		'Dusk'		: htram,
+		'Lat'		: Latit,
+		'Lon'		: Longi,
+		'Hour'		: d.getHours(),
+		'Minute'	: d.getMinutes()
+	}
+	
+	client.emit('RxEvent', JSON.stringify(KNXdecoded));
+	
 	client.on('message',function(event)
 	{ 
 	  // console.log("socket"); //debug
@@ -218,9 +254,7 @@ KnxPort = new SerialPort(portKNX,
   xany: flowKNX
 });
 
-var txTick = 250;
 var KnxOpenFlag = 0;
-var timeout = txTick * 4;
 
 
 KnxPort.on('open', function()
@@ -235,6 +269,9 @@ KnxPort.on('open', function()
   	rxTx.KnxInit();
 
   	knxOpenFlag = 1;
+  	
+  	solehome.Calcola();// first time, startup calculation
+	//console.log(hsorge+"  "+htram+"  @ lat:"+Latit+"  long:"+Longi);		
 });
 
 KnxPort.on("data", function (data) 
@@ -247,12 +284,64 @@ KnxPort.on('error', function (data)
 //    console.log("LLS comm error" + data);
 });
 
+var txTick = 250;
 // =====================================idle cycle. executed on event schedule
 var knxTx=setInterval(function(){KnxTxTimer();},txTick);
 
 function KnxTxTimer()
 {// every txTick ms
    KnxPort.write("@r");		//request next buffer entry from KNXgate
+}
+// idle cycle. executed on event schedule=====================================
+
+
+
+var sunTick = 55000;
+// =====================================sun dawn & dusk calculation. executed every 55'
+var sun=setInterval(function(){sunTimer();},sunTick);
+
+function sunTimer()
+{// every sunTick ms
+	var d = new Date();
+
+	if(d.getHours()===0 & d.getMinutes()===0)
+	{// get new dawn & dusk data at midnight every day
+		solehome.Calcola(); // dawn & dusk calculation
+		//console.log("Dawn: "+hsorge+"  Dusk: "+htram+"  @ lat:"+Latit+"  long:"+Longi);
+	}
+	
+	if(CLIENT!=0)
+		{
+			KNXdecoded = 
+			{
+				'Date'		: "",
+				'Length' 	: "",
+				'Prio'		: "",
+				'Rep'		: "",
+				'SendArea'	: "",
+				'SendLine'	: "",
+				'SendDev'	: "",
+				'DestArea'	: "",
+				'DestLine'	: "",
+				'DestHex'	: 0,
+				'DestDev'	: 0,
+				'DestGroup'	: "",
+				'Routing'	: "",
+				'Count'		: "",
+				'Pdu'		: "",
+				'Payload'	: "",
+				'Check'		: "",
+				'Telegram'	: "",
+				'Dawn'		: hsorge,
+				'Dusk'		: htram,
+				'Lat'		: Latit,
+				'Lon'		: Longi,
+				'Hour'		: d.getHours(),
+				'Minute'	: d.getMinutes()
+			}
+			
+			CLIENT.emit('RxEvent', JSON.stringify(KNXdecoded));
+		}
 }
 // idle cycle. executed on event schedule=====================================
 

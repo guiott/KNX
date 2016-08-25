@@ -14,14 +14,24 @@
         outline: none;
 }
 
-#RXdata 
-{
+#RXdata {
 	position: absolute;
 	left: 30px;
 	top: 650px;
 	z-index: 2;
 	text-align: left;
 	font: 16px/1px sans-serif; 
+	font-weight: bold; 
+	color: #666; 
+}
+
+#Sun {
+	position: absolute;
+	left: 60px;
+	top: 27px;
+	z-index: 2;
+	text-align: left;
+	font: 12px/1px sans-serif; 
 	font-weight: bold; 
 	color: #666; 
 }

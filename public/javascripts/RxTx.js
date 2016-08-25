@@ -127,6 +127,11 @@ socket.on('RxEvent', function (data)
    " - Count:"+RX.Count+
    " - Data:"+RX.Payload+" hex"
  */  //console.log("Json received "+data);
+ 
+  document.getElementById("Sun").innerHTML =
+  (
+      "Alba ore: "+RX.Dawn+"    Tramonto ore: "+RX.Dusk+" @ Lat: "+RX.Lat+"  Lon: "+RX.Lon+" --- "+RX.Hour+":"+RX.Minute
+  );
 });  
   
  function Luci(Status) 
