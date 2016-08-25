@@ -9,6 +9,10 @@ and more information about it can be obtained on those pages.
 
 This software has been used also as a Konnex bus sniffer to understand how to compose the KNX telegrams to control devices of different kind and scenarios too.
 
+A dusk and dawn calculator scripts has been added in order to possibly use the system as a twilight switch too
+courtesy of: 
+http://www.renatoweb.it/sole.htm
+
 Any information about KNX can be obtained on the Net were a lot of pages are available.
 Information about PIC firmware can be obtained from the original project site.
 
