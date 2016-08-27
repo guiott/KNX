@@ -284,6 +284,9 @@ KnxPort.on('error', function (data)
 //    console.log("LLS comm error" + data);
 });
 
+/* to run in polling mode
+1 - uncomment this block 
+2 - comment line in init that starts continuos logging (@l)
 var txTick = 250;
 // =====================================idle cycle. executed on event schedule
 var knxTx=setInterval(function(){KnxTxTimer();},txTick);
@@ -293,7 +296,7 @@ function KnxTxTimer()
    KnxPort.write("@r");		//request next buffer entry from KNXgate
 }
 // idle cycle. executed on event schedule=====================================
-
+*/
 
 
 var sunTick = 55000;
