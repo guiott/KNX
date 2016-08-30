@@ -55,82 +55,82 @@ socket.on('loopBackEvent', function (data)
 socket.on('RxEvent', function (data) 
 { 
   var RX = JSON.parse(data);
-  
+
   var Tap=true;
   var DestStatus="OFF";
+
   for(var i=0; i<Device.length; i++)
   {
-  	if(RX.DestHex===Device[i][0] & RX.DestDev===Device[i][1])
-  	{
-  		var DestLiteral=Device[i][3];
-  		Tap=false;
-  		if(RX.Payload===" 81")
-  		{
-  			DestStatus="ON ";
-  		}
-  		else
-  		{
-  			DestStatus="OFF";
-  		}
-  		break;
-  	}
-  	
-  	var TapStop=true;
-  	if(Tap)
-  	{
-		if(RX.DestHex===DeviceTap[i][0] & RX.DestDev===DeviceTap[i][1])
+
+	if(RX.Dest===Device[i][0] & RX.DestDev===Device[i][1])
+	{
+		var DestLiteral=Device[i][3];
+		Tap=false;
+		if(RX.Payload===" 81")
 		{
-			TapStop=false;
-			var DestLiteral=DeviceTap[i][3];
-			if(RX.Payload===" 81")
-			{
-				DestStatus=" tapparella GIU ";
-			}
-			else
-			{
-				DestStatus=" tapparella SU";
-			}
-			break;
+			DestStatus="ON ";
 		}
-  	}
-  	
+		else
+		{
+			DestStatus="OFF";
+		}
+		break;
+	}
+  }
+   	
+	var TapStop=true;
+	if(Tap)
+	{
+	  for(var i=0; i<DeviceTap.length; i++)
+		{ 
+			if(RX.Dest===DeviceTap[i][0] & RX.DestDev===DeviceTap[i][1])
+			{
+				TapStop=false;
+				var DestLiteral=DeviceTap[i][3];
+				if(RX.Payload===" 81")
+				{
+					DestStatus=" tapparella GIU ";
+				}
+				else
+				{
+					DestStatus=" tapparella SU";
+				}
+				break;
+			}
+		}
+	}
+  
   	if(TapStop)
   	{
-		if(RX.DestHex===DeviceTap[i][0] & RX.DestDev===DeviceTap[i][2])
+  		for(var i=0; i<DeviceTap.length; i++)
 		{
-			var DestLiteral=DeviceTap[i][3];
-			DestStatus=" tapparella STOP ";
-			break;
+			if(RX.Dest===DeviceTap[i][0] & RX.DestDev===DeviceTap[i][2])
+			{
+				var DestLiteral=DeviceTap[i][3];
+				DestStatus=" tapparella STOP ";
+				break;
+			}
 		}
   	}
-  }
   
-  document.getElementById("RXdata").innerHTML =
-  (
-  	"received:---- "+DestLiteral+" "+DestStatus+" ----"+RX.Date
-  );
-  /*
-   " - "+RX.Telegram+
-   " - Priority:"+RX.Prio+
-   " - Repetion:"+RX.Rep+
-   " - Send Area:"+RX.SendArea+
-   " - Send Line:"+RX.SendLine+
-   " - Send Dev:"+RX.SendDev+
-   " - Area:"+RX.DestArea+
-   " - Line:"+RX.DestLine+
-   " - Dev:"+RX.DestDev+
-   " - Dev:"+decToHex(RX.DestHex)+" "+decToHex(RX.DestDev)+
-   " - Routing:"+RX.Routing+
-   " - PDU:"+RX.Pdu+
-   " - Checksum:"+RX.Check
-   " - Group:"+RX.DestGroup+
-   " - Count:"+RX.Count+
-   " - Data:"+RX.Payload+" hex"
- */  //console.log("Json received "+data);
+  if(RX.Prio==="High Prio" | RX.Prio==="Low Prio")
+  {
+	  document.getElementById("RXdata").innerHTML =
+	  (
+		"received:---- "+DestLiteral+" "+DestStatus+" ----"+RX.Date
+	  );
+  }
+  else
+  {
+	  document.getElementById("RXdata").innerHTML =
+	  (
+		"received:---- "+RX.Prio+" "+RX.DestHex+" ----"+RX.Date
+	  );  
+  }
  
   document.getElementById("Sun").innerHTML =
   (
-      "Alba ore: "+RX.Dawn+"    Tramonto ore: "+RX.Dusk+" @ Lat: "+RX.Lat+"  Lon: "+RX.Lon+" --- "+RX.Hour+":"+RX.Minute
+      "Alba ore: "+RX.Dawn+"    Tramonto ore: "+RX.Dusk+" @ Lat: "+RX.Lat+"  Lon: "+RX.Lon+" --- "+decToStr(RX.Hour)+":"+decToStr(RX.Minute)
   );
 });  
   
@@ -250,3 +250,8 @@ function decToHex(Dec)
 	return dataHex.toUpperCase();
 }
 
+function decToStr(Dec)
+{//return HEX value 0 padded
+	var dataStr = ("00" + (Dec.toString(10))).slice(-2);
+	return dataStr;
+}
