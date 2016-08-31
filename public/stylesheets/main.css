@@ -14,13 +14,37 @@
         outline: none;
 }
 
+ol
+{
+	height:200px; 
+	width:100%;
+	overflow:hidden; 
+	overflow-y:scroll;
+	background:#F0F1F5;
+    padding: 2px;
+    border: 1px solid #ddd;
+} 
+ol li
+{
+    border-bottom: 1px solid #ddd;
+	margin: 3px;
+	background: #F7F8FC;
+}
+
+ol li:last-child {
+    border-bottom: none
+}
+
 #RXdata {
-	position: absolute;
-	left: 30px;
-	top: 650px;
+	position: relative;
+	left: 43px;
+	top: 560px;
+	display: inline-block;
+	list-style: none inside;
 	z-index: 2;
 	text-align: left;
-	font: 16px/1px sans-serif; 
+	font-family: sans-serif; 
+	font-size:	1em;
 	font-weight: bold; 
 	color: #666; 
 }
@@ -147,8 +171,8 @@ input#roundRed{
  -webkit-border-radius: 0;
 width:100px; /*same as the height*/
 height:100px; /*same as the width*/
-background-color:#d0451b;
-border:1px solid #d0451b; /*same colour as the background*/
+background-color:#FC575E;
+border:1px solid #FC575E; /*same colour as the background*/
 color:#fff;
 text-align: center;
 padding: 0px;
@@ -168,8 +192,8 @@ box-shadow: 2px 2px 15px rgba(0,0,0, .75);
 }
 /***NOW STYLE THE BUTTON'S HOVER STATE***/
 input#roundRed:hover{
-background:#bc3315;
-border:1px solid #bc3315;
+background:#DA353C;
+border:1px solid #DA353C;
 /*reduce the size of the shadow to give a pushed effect*/
 -webkit-box-shadow: 0px 0px 5px rgba(0,0,0, .75);
 -moz-box-shadow: 0px 0px 5px rgba(0,0,0, .75);
@@ -185,8 +209,8 @@ input#roundBlue{
  -webkit-border-radius: 0;
 width:100px; /*same as the height*/
 height:100px; /*same as the width*/
-background-color:#2dabf9;
-border:1px solid #2dabf9; /*same colour as the background*/
+background-color:#44BBFF;
+border:1px solid #44BBFF; /*same colour as the background*/
 color:#fff;
 text-align: center;
 padding: 0px;
@@ -206,8 +230,8 @@ box-shadow: 2px 2px 15px rgba(0,0,0, .75);
 }
 /***NOW STYLE THE BUTTON'S HOVER STATE***/
 input#roundBlue:hover{
-background:#0688fa;
-border:1px solid #0688fa;
+background:#2299DD;
+border:1px solid #2299DD;
 /*reduce the size of the shadow to give a pushed effect*/
 -webkit-box-shadow: 0px 0px 5px rgba(0,0,0, .75);
 -moz-box-shadow: 0px 0px 5px rgba(0,0,0, .75);
@@ -223,8 +247,8 @@ input#roundGreen{
  -webkit-border-radius: 0;
 width:100px; /*same as the height*/
 height:100px; /*same as the width*/
-background-color:#44c767;
-border:1px solid #44c767; /*same colour as the background*/
+background-color:#66CC99;
+border:1px solid #66CC99; /*same colour as the background*/
 color:#fff;
 text-align: center;
 padding: 0px;
@@ -244,8 +268,8 @@ box-shadow: 2px 2px 15px rgba(0,0,0, .75);
 }
 /***NOW STYLE THE BUTTON'S HOVER STATE***/
 input#roundGreen:hover{
-background:#5cbf2a;
-border:1px solid #5cbf2a;
+background:#44AA77;
+border:1px solid #44AA77;
 /*reduce the size of the shadow to give a pushed effect*/
 -webkit-box-shadow: 0px 0px 5px rgba(0,0,0, .75);
 -moz-box-shadow: 0px 0px 5px rgba(0,0,0, .75);

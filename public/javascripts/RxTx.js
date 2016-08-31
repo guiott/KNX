@@ -115,17 +115,23 @@ socket.on('RxEvent', function (data)
   
   if(RX.Prio==="High Prio" | RX.Prio==="Low Prio")
   {
+	  /*
 	  document.getElementById("RXdata").innerHTML =
 	  (
 		"received:---- "+DestLiteral+" "+DestStatus+" ----"+RX.Date
 	  );
+	  */
+	  $("ol").prepend("<li><--- "+DestLiteral+" "+DestStatus+" === "+RX.Date+"</li>");
   }
   else
   {
+	  /*
 	  document.getElementById("RXdata").innerHTML =
 	  (
 		"received:---- "+RX.Prio+" "+RX.DestHex+" ----"+RX.Date
 	  );  
+	  */
+	  $("ol").prepend("<li><--- "+RX.Prio+" "+RX.DestHex+" === "+RX.Date+"</li>");
   }
  
   document.getElementById("Sun").innerHTML =
@@ -178,11 +184,14 @@ var KNXaction=function(Device, Switch, Count)
 			DestStatus = "OFF";
 		}
 	}
+	/*
 	document.getElementById("RXdata").innerHTML =
 	(
     	"sent:---- "+Device[3]+" "+DestStatus+" ----"+Date()
     );
-	
+    */
+	$("ol").prepend("<li>---> "+Device[3]+" "+DestStatus+" === "+Date()+"</li>");
+	  
 	//console.log(KNXact);
 };
 
@@ -200,7 +209,7 @@ var KNXactionTap=function(Device, Switch, Count)
 				'CMD'	: false,
 				'COUNT'	: Count,
 			}
-			DestStatus=" tapparella SU";
+			DestStatus="tap. SU";
 			break;
 		case 1:
 			var KNXact =
@@ -210,7 +219,7 @@ var KNXactionTap=function(Device, Switch, Count)
 				'CMD'	: true,
 				'COUNT'	: Count,
 			}
-			DestStatus=" tapparella GIU";
+			DestStatus="tap. GIU";
 			break;
 		case 2:
 			var KNXact =
@@ -220,16 +229,19 @@ var KNXactionTap=function(Device, Switch, Count)
 				'CMD'	: true,
 				'COUNT'	: Count,
 			}
-			DestStatus=" tapparella STOP";
+			DestStatus="tap. STOP";
 			break;
 	}
 	socket.emit('message', JSON.stringify(KNXact));
-		
+	
+	$("ol").prepend("<li>---> "+Device[3]+" "+DestStatus+" === "+Date()+"</li>");
+	  
+	/*
 	document.getElementById("RXdata").innerHTML =
 	(
     	"sent:---- "+Device[3]+" "+DestStatus+" ----"+Date()
     );
-    
+    */
 	//console.log(KNXact);
 };
 

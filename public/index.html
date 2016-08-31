@@ -9,40 +9,42 @@
 </head>
    
 <body>
+	
+	<div>
+    	<img id="myImage" src="images/sun.jpg" alt="Sun" height="40" width="40">
+    </div>
 
-<div>
-
-	<span id=divLuciOFF>
+	<div id=divLuciOFF>
 		<canvas id="divLuciOFF" width="0" height="50"></canvas>
 		<input id="roundRed" type="submit" value="OFF" onclick="Luci(false)"/>
-	</span>
+	</div>
 
-	<span id=divLuciON>
+	<div id=divLuciON>
 		<canvas id="divLuciON" width="0" height="50"></canvas>
 		<input id="roundGreen" type="submit" value="ON" onclick="Luci(true)"/>
-	</span>
+	</div>
 
-   <span id=divScenariON>
+   <div id=divScenariON>
 		<canvas id="divScenariON" width="0" height="50"></canvas>
 		<input id="roundBlue" type="submit" value="GO" onclick="Scenari(false)"/>
-   </span>
+   </div>
 
-   <span id=divTapGIU>
+   <div id=divTapGIU>
 		<canvas id="divTapGIU" width="0" height="50"></canvas>
 	   <input id="roundBlue" type="submit" value="GIU" onclick="Tap(1)"/>
-   </span>
+   </div>
 
-	<span id=divTapSU>
+	<div id=divTapSU>
 		<canvas id="divTapSU" width="0" height="50"></canvas>
 		<input id="roundGreen" type="submit" value="SU" onclick="Tap(0)"/>
-	</span>
+	</div>
 
-   <span id=divTapStop>
+   <div id=divTapStop>
 		<canvas id="divTapStop" width="0" height="50"></canvas>
 		<input id="roundRed" type="submit" value="STOP" onclick="Tap(2)"/>
-   </span>
+   </div>
 
-	<span id=divPopUpLuci class="styled-select blue rounded">
+	<div id=divPopUpLuci class="styled-select blue rounded">
 	   <select id=LuciList>
 		 <option value="0">LUCI</option>
 		 <option value="1">Salone Luci SX</option>
@@ -64,18 +66,18 @@
 		 <option value="17">Bagno Giorno</option>
 		 <option value="18">Presa TV</option>
 	   </select>
-	</span>
+	</div>
 
-	<span id=divPopUpScenari class="styled-select blue rounded">
+	<div id=divPopUpScenari class="styled-select blue rounded">
 	   <select id=ScenariList>
 		 <option value="0">SCENARI</option>
 		 <option value="19">Luci OFF</option>
 		 <option value="20">Tapparelle Su</option>
 		 <option value="21">Tapparelle Giu</option>
 	   </select>
-	</span>
-
-	<span id=divPopUpTap class="styled-select blue rounded">
+	</div>
+	
+	<div id=divPopUpTap class="styled-select blue rounded">
 	   <select id=TapList>
 		 <option value="0">TAPPARELLE</option>
 		 <option value="1">Salone</option>
@@ -87,18 +89,27 @@
 		 <option value="7">Bagno notte</option>
 		 <option value="8">Bagno Giorno</option>
 	   </select>
-	</span>
-
+	</div>
+	
+    <div id=Sun>
+    </div>
+	
+	<nav id=RXdata>
+		<ol  reversed>
+		</ol>
+	</nav>
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<script src="socket.io/socket.io.js"></script>
 	<script src="javascripts/RxTx.js"></script>
 
-    <img id="myImage" src="images/sun.jpg" alt="Sun" height="40" width="40">
+	<script>
+		$(document).ready(function()
+	  	{
+	  		var Disp="<li> --------------------------------------------------------------------------------------------------------------------------</li>"
+	  		$("ol").prepend(Disp);
+	  	});
+	</script>
 
-    <span id=Sun>
-    </span>
-
-	<span id=RXdata /span>
-
-</div>
 
 </body></html>
