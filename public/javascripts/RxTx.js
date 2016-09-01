@@ -123,7 +123,7 @@ socket.on('RxEvent', function (data)
 	  */
 	  $("ol").prepend("<li><--- "+DestLiteral+" "+DestStatus+" === "+RX.Date+"</li>");
   }
-  else
+  else if(RX.Prio==="System" | RX.Prio==="Alarm")
   {
 	  /*
 	  document.getElementById("RXdata").innerHTML =
@@ -132,6 +132,10 @@ socket.on('RxEvent', function (data)
 	  );  
 	  */
 	  $("ol").prepend("<li><--- "+RX.Prio+" "+RX.DestHex+" === "+RX.Date+"</li>");
+  }
+  else
+  {
+  	//console.log("Not a valid RX");
   }
  
   document.getElementById("Sun").innerHTML =
